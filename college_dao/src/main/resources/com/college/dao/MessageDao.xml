@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.college.dao.MessageDao">
+    <select id="getMessage" parameterType="map" resultType="message">
+        select * from college_project.message
+        <where>
+            <if test="messageId != null">
+                messageId=#{messageId}
+            </if>
+            <if test="messageTitle != null">
+                and messageTitle=#{messageTitle}
+            </if>
+            <if test="messageType != null">
+                and messageType=#{messageType}
+            </if>
+            <if test="createDate != null">
+                and createDate=#{messageType}
+
+            </if>
+            <if test="status != null">
+                and status=#{messageType}
+
+            </if>
+        </where>
+    </select>
+
+<select id="getAllMessage" resultType="message">
+    select * from college_project.message
+</select>
+
+    <insert id="insertMessage" parameterType="map">
+        insert into college_project.message (messageTitle,messageType,messageContent,createDate)
+        values (#{messageTitle},#{messageType},#{messageContent},#{createDate})
+    </insert>
+
+    <update id="updateMessage" parameterType="map">
+        update college_project.message
+        <set>
+            <if test="messageTitle != null">
+                messageTitle=#{messageTitle},
+            </if>
+            <if test="messageType != null">
+                messageType=#{messageType},
+            </if>
+            <if test="messageContent != null">
+                messageContent=#{messageContent},
+            </if>
+            <if test="status != null">
+                status=#{status}
+            </if>
+        </set>
+       where messageId=#{messageId}
+    </update>
+
+    <delete id="deleteMessage" parameterType="map">
+       delete from college_project.message
+        <where>
+            <if test="messageId != null">
+                messageId=#{messageId}
+            </if>
+            <if test="messageTitle != null">
+                and messageTitle=#{messageTitle}
+            </if>
+            <if test="messageType != null">
+                and messageType=#{messageType}
+            </if>
+            <if test="createDate != null">
+                and createDate=#{messageType}
+
+            </if>
+            <if test="status != null">
+                and status=#{messageType}
+
+            </if>
+        </where>
+    </delete>
+</mapper>

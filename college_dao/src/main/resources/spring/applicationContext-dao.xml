@@ -16,14 +16,14 @@
 			    http://www.springframework.org/schema/mvc
 			    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--dao层配置文件开始-->
+
     <!--配置连接池-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql:///maven"/>
+        <property name="url" value="jdbc:mysql:///college_project?useUnicode=true&amp;characterEncoding=UTF8"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
-
     <!--配置生产SqlSession对象的工厂-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
@@ -36,5 +36,4 @@
         <property name="basePackage" value="com.college.dao"/>
     </bean>
     <!--dao层配置文件结束-->
-
 </beans>

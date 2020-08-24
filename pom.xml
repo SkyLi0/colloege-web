@@ -25,11 +25,13 @@
         <mysql.version>5.1.6</mysql.version>
         <mybatis.version>3.4.5</mybatis.version>
         <spring.security.version>5.0.1.RELEASE</spring.security.version>
+
     </properties>
 
     <!-- 锁定jar包版本 -->
     <dependencyManagement>
         <dependencies>
+
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
@@ -65,6 +67,15 @@
 
     <!-- 项目依赖jar包 -->
     <dependencies>
+        <!--lombok-->
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
         <!-- spring -->
         <dependency>
             <groupId>org.aspectj</groupId>
