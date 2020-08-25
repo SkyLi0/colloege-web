@@ -20,12 +20,13 @@ public class MessageController {
     }
     @Autowired
     private MessageService messageService;
-    @RequestMapping("/college/message/messagebyid")
+    @RequestMapping("/college/message/getMessage")
     public String MessageTest(Model model){
         HashMap map = new HashMap();
+        map.put("author","信息学院");
         map.put("messageId",1);
         List<Message> messgae=messageService.getMessage(map);
-        model.addAttribute("allmessage",messgae);
+        model.addAttribute("message",messgae);
 
             SetLogUtil.setLog(MessageController.class).info("== 视图模型添加，MessageController准备转发至前端 ==");
 

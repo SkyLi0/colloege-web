@@ -17,11 +17,12 @@
             </if>
             <if test="createDate != null">
                 and createDate=#{messageType}
-
             </if>
             <if test="status != null">
                 and status=#{messageType}
-
+            </if>
+            <if test="author != null">
+                and author=#{author}
             </if>
         </where>
     </select>
@@ -31,8 +32,8 @@
 </select>
 
     <insert id="insertMessage" parameterType="map">
-        insert into college_project.message (messageTitle,messageType,messageContent,createDate)
-        values (#{messageTitle},#{messageType},#{messageContent},#{createDate})
+        insert into college_project.message (messageTitle,messageType,messageContent,createDate,author,messageAddress)
+        values (#{messageTitle},#{messageType},#{messageContent},#{createDate},#{author},#{messageAddress})
     </insert>
 
     <update id="updateMessage" parameterType="map">
@@ -48,7 +49,13 @@
                 messageContent=#{messageContent},
             </if>
             <if test="status != null">
-                status=#{status}
+                status=#{status},
+            </if>
+            <if test="author != null">
+                author=#{author},
+            </if>
+            <if test="messageAddress != null">
+                messageAddress=#{messageAddress}
             </if>
         </set>
        where messageId=#{messageId}
@@ -73,6 +80,9 @@
             <if test="status != null">
                 and status=#{messageType}
 
+            </if>
+            <if test="author != null">
+                and author=#{author}
             </if>
         </where>
     </delete>

@@ -11,17 +11,17 @@ public class Test {
     public void test() {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
         MessageDao messageDao = ac.getBean(MessageDao.class);
-        HashMap map = new HashMap();
+//        HashMap map = new HashMap();
 //        map.put("messageType","学院新闻");
-//        List<Message> allMessage = messageDao.getMessage(map);
-//      for (Message m:allMessage
-//            ) {
-//           System.out.println(m);
-//      }
+        List<Message> allMessage = messageDao.getAllMessage();
+        for (Message m:allMessage
+        ) {
+            System.out.println(m);
+        }
 //        map.put()
-        map.put("messageType","学院新闻");
-        int a=messageDao.insertMessage(map);
-        System.out.println(a);
+//        map.put("messageType","学院新闻");
+//        int a=messageDao.insertMessage(map);
+//        System.out.println(a);
 
 
 //        map.put("messageId",1);

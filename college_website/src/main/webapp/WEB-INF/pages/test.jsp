@@ -11,9 +11,10 @@
     <title>Insert title here</title>
 </head>
 <body>
-${address}
-<%--<c:forEach var="message" items="${requestScope.get('allmessage')}">--%>
-<%--${message.getMessageContent()}--%>
-<%--</c:forEach>--%>
+<%--${message}--%>
+<c:forEach var="message" items="${requestScope.get('message')}">
+${message.getMessageContent()}
+    <hr/>
+</c:forEach>
 </body>
 </html>
