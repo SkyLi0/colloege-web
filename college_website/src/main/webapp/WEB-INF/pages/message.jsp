@@ -11,10 +11,12 @@
     <title>Insert title here</title>
 </head>
 <body>
-<%--${message}--%>
-<c:forEach var="message" items="${requestScope.get('message')}">
-${message.getMessageContent()}
-    <hr/>
-</c:forEach>
+${message}
+<hr/>
+<a href="${pageContext.request.contextPath}/college/message/getAllMessage">查看所有信息</a>
+<%--<c:forEach var="message" items="${requestScope.get('message')}">--%>
+<%--${message.getMessageContent()}--%>
+    <%--<hr/>--%>
+<%--</c:forEach>--%>
 </body>
 </html>

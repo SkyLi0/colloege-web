@@ -32,8 +32,8 @@
 </select>
 
     <insert id="insertMessage" parameterType="map">
-        insert into college_project.message (messageTitle,messageType,messageContent,createDate,author,messageAddress)
-        values (#{messageTitle},#{messageType},#{messageContent},#{createDate},#{author},#{messageAddress})
+        insert into college_project.message (messageTitle,messageType,messageContent,author,messageAddress)
+        values (#{messageTitle},#{messageType},#{messageContent},#{author},#{messageAddress})
     </insert>
 
     <update id="updateMessage" parameterType="map">

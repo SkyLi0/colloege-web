@@ -17,4 +17,5 @@ public class Message {
     private Date createDate;//创建时间
     private String status;//审核状态
     private String messageAddress;//文章链接
+    private String author;//作者
 }

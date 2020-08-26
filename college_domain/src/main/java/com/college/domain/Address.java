@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//当时没思考好，建立了这个感觉没啥用
 public class Address {
     private String address_name;//链接地址名
     private String address;//链接地址
