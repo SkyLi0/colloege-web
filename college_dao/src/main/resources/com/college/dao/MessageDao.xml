@@ -15,11 +15,11 @@
             <if test="messageType != null">
                 and messageType=#{messageType}
             </if>
-            <if test="createDate != null">
-                and createDate=#{messageType}
+            <if test="formatDate != null">
+                and formatDate=#{formatDate}
             </if>
             <if test="status != null">
-                and status=#{messageType}
+                and status=#{status}
             </if>
             <if test="author != null">
                 and author=#{author}
@@ -32,8 +32,8 @@
 </select>
 
     <insert id="insertMessage" parameterType="map">
-        insert into college_project.message (messageTitle,messageType,messageContent,author,messageAddress)
-        values (#{messageTitle},#{messageType},#{messageContent},#{author},#{messageAddress})
+        insert into college_project.message (messageTitle,messageType,messageContent,author,messageAddress,formatDate)
+        values (#{messageTitle},#{messageType},#{messageContent},#{author},#{messageAddress},#{formatDate})
     </insert>
 
     <update id="updateMessage" parameterType="map">
@@ -55,7 +55,10 @@
                 author=#{author},
             </if>
             <if test="messageAddress != null">
-                messageAddress=#{messageAddress}
+                messageAddress=#{messageAddress},
+            </if>
+            <if test="formatDate != null">
+                formatDate=#{formatDate}
             </if>
         </set>
        where messageId=#{messageId}
@@ -73,12 +76,12 @@
             <if test="messageType != null">
                 and messageType=#{messageType}
             </if>
-            <if test="createDate != null">
-                and createDate=#{messageType}
+            <if test="formatDate != null">
+                and formatDate=#{formatDate}
 
             </if>
             <if test="status != null">
-                and status=#{messageType}
+                and status=#{status}
 
             </if>
             <if test="author != null">

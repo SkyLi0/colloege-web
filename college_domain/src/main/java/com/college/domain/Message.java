@@ -18,4 +18,5 @@ public class Message {
     private String status;//审核状态
     private String messageAddress;//文章链接
     private String author;//作者
+    private String formatDate;//格式化时间
 }

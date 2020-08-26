@@ -25,6 +25,6 @@ public class AddressController {
         List<Address> address = addressService.getAddress(map);
         model.addAttribute("address",address);
         SetLogUtil.setLog(AddressController.class).info("==视图模型添加，AddressController准备转发至前端 ==");
-        return "test";
+        return "";
     }
 }

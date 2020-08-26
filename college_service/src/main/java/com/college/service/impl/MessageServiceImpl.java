@@ -15,7 +15,7 @@ public class MessageServiceImpl implements MessageService {
         SetLogUtil.setLog(MessageServiceImpl.class).info("==进入MessageServiceImpl===");
     }
   @Autowired
-    private MessageDao messageDao;
+    private MessageDao messageDao;//调用的是
 
     public void setMessageDao(MessageDao messageDao) {
         this.messageDao = messageDao;

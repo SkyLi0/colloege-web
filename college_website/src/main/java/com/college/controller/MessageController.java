@@ -11,72 +11,90 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@Controller
-//@RestController
+//@Controller
+@RestController
+@RequestMapping("/college/message")
 public class MessageController{
     static{
         SetLogUtil.setLog(MessageController.class).info("== 进入MessageController ==");
     }
     @Autowired
     private MessageService messageService;
-//        @RequestMapping("/college/message/getMessage")//按条件查询文章页面
-////    public String getMessage(Model model,int id){
-////        HashMap map = new HashMap();
-////        map.put("author","信息学院");
-////        map.put("messageId",id);
-////        List<Message> messgae=messageService.getMessage(map);
-////        model.addAttribute("message",messgae);
-////            SetLogUtil.setLog(MessageController.class).info("== getMessage视图模型添加，准备转发至前端 ==");
-////
-////        return "message";
-////    }
-
-
-
-//测试，为了方便写了3个前后端不分离的测试功能：
-
-    @RequestMapping("/college/message/getAllMessage")//查询所有文章（括号内为映射路径）
-    public String getAllMessage(Model model) throws JsonProcessingException {
-        List<Message> allMessage = messageService.getAllMessage();
-//        ObjectMapper mapper=new ObjectMapper();
-//        String str = mapper.writeValueAsString(allMessage);
-        model.addAttribute("allMessage", allMessage);
-        SetLogUtil.setLog(MessageController.class).info("== getAllMessage视图模型添加，准备转发至前端 ==");
-        return "allMessage";//去allMessage.jsp页面 "allMessage"
-    }
-@RequestMapping("/college/message/toAddMessage")//去添加文章
-    public String toAddMessage(){
-
-            return "addMessage";
-    }
-@RequestMapping("/college/message/addMessage")//添加文章
-    public String addMessage(String messageTitle,String messageType){
-    HashMap<Object, Object> map = new HashMap<>();
-    map.put("messageTitle",messageTitle);
-    map.put("messageType",messageType);
-
-    messageService.insertMessage(map);
-    return "redirect:/college/message/getAllMessage";//去复用getAllMessage(Model model)方法
-    }
-    @RequestMapping("/college/message/toUpdateMessage")//去更新文章
-    public String toUpdateMessage(int id,Model model){
+    @RequestMapping("/getMessage")//按条件查询接口
+    public String getMessage(int id) throws JsonProcessingException {
         HashMap<Object, Object> map = new HashMap<>();
+        map.put("author","信息学院");
         map.put("messageId",id);
-        List<Message> messageList=messageService.getMessage(map);
-        model.addAttribute("Qmessage",messageList.get(0));
-            return"updateMessage";
+        List<Message> message=messageService.getMessage(map);
+        ObjectMapper mapper=new ObjectMapper();
+        String qmessage = mapper.writeValueAsString(message);
+        return qmessage;
     }
-@RequestMapping("/college/message/updateMessage")//更新文章
+
+
+
+
+    @RequestMapping("/getAllMessage")//查询所有接口
+    public String getAllMessage() throws JsonProcessingException {
+        List<Message> allMessage = messageService.getAllMessage();
+        ObjectMapper mapper=new ObjectMapper();
+        String all = mapper.writeValueAsString(allMessage);
+        return all;
+    }
+
+@RequestMapping("/addMessage")//添加接口
+    public String addMessage(Message message){
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    HashMap<Object, Object> map = new HashMap<>();
+    map.put("messageTitle",message.getMessageTitle());
+    map.put("messageType",message.getMessageType());
+    map.put("author",message.getAuthor());
+    map.put("messageAddress",message.getMessageAddress());
+    map.put("messageContent",message.getMessageContent());
+    int i = messageService.insertMessage(map);
+    List<Message> message1 = messageService.getMessage(map);
+    map.put("formatDate",sdf.format( message1.get(0).getCreateDate()));
+    map.put("messageId",message1.get(0).getMessageId());
+    int j = messageService.updateMessage(map);
+    if(j<1){
+        return "添加失败！";
+    }
+    return "添加成功！";
+    }
+
+@RequestMapping("/updateMessage")//更新接口
     public String updateMessage(Message message){
         HashMap<Object, Object> map = new HashMap<>();
         map.put("messageTitle",message.getMessageTitle());
         map.put("messageType",message.getMessageType());
+        map.put("status",message.getStatus());
         map.put("messageId",message.getMessageId());
-        messageService.updateMessage(map);
-        return "redirect:/college/message/getAllMessage";
+        map.put("messageContent",message.getMessageContent());
+        map.put("messageAddress",message.getMessageAddress());
+        map.put("author",message.getAuthor());
+    int i = messageService.updateMessage(map);
+    if(i<1){
+        return "更新失败！";
+    }
+    return "更新成功！";
+    }
+
+    @RequestMapping("/deleteMessage")//删除接口
+    public String deleteMessage(int id){
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("messageId",id);
+        int i = messageService.deleteMessage(map);
+        if (i>0){
+            return "删除成功！";
+        }
+        else {
+            return "删除失败！";
+        }
     }
 }
