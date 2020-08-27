@@ -18,13 +18,5 @@ public class AddressController {
     }
     @Autowired
     private AddressService addressService;
-    @RequestMapping("/college/address/addressbystatus")
-    public String addressTest(Model model){
-        HashMap<Object, Object> map = new HashMap<>();
-        map.put("status","未审核");
-        List<Address> address = addressService.getAddress(map);
-        model.addAttribute("address",address);
-        SetLogUtil.setLog(AddressController.class).info("==视图模型添加，AddressController准备转发至前端 ==");
-        return "";
-    }
+
 }

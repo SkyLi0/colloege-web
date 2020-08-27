@@ -26,21 +26,25 @@ public class MessageController{
     }
     @Autowired
     private MessageService messageService;
-    @RequestMapping("/getMessage")//按条件查询接口
-    public String getMessage(int id) throws JsonProcessingException {
+    /*
+    * 通过给出条件模糊查询接口,以下4个参数可单选或者多选
+    * */
+    @RequestMapping("/getMessage")
+    public String getMessage(String messageType,String formatDate,String author,String messageTitle ) throws JsonProcessingException {
         HashMap<Object, Object> map = new HashMap<>();
-        map.put("author","信息学院");
-        map.put("messageId",id);
+        if(messageType.isEmpty()==false){  map.put("messageType",messageType);}//选填
+        if(formatDate.isEmpty()==false){ map.put("formatDate",formatDate);}//选填
+        if(author.isEmpty()==false){ map.put("author",author);}//选填
+        if(messageTitle.isEmpty()==false){ map.put("messageTitle",messageTitle);}//选填
         List<Message> message=messageService.getMessage(map);
         ObjectMapper mapper=new ObjectMapper();
         String qmessage = mapper.writeValueAsString(message);
         return qmessage;
     }
-
-
-
-
-    @RequestMapping("/getAllMessage")//查询所有接口
+/*
+* //查询所有接口
+* */
+    @RequestMapping("/getAllMessage")
     public String getAllMessage() throws JsonProcessingException {
         List<Message> allMessage = messageService.getAllMessage();
         ObjectMapper mapper=new ObjectMapper();
@@ -48,15 +52,30 @@ public class MessageController{
         return all;
     }
 
-@RequestMapping("/addMessage")//添加接口
+    /*
+    * 通过ID精确查询接口
+    * */
+    @RequestMapping("/getMessageById")
+    public String getMessage(int messageId) throws JsonProcessingException {
+        HashMap<Object, Object> map = new HashMap<>();
+        map.put("messageId",messageId);
+        List<Message> message = messageService.getMessage(map);
+        ObjectMapper objectMapper = new ObjectMapper();
+        String back = objectMapper.writeValueAsString(message);
+        return back;
+    }
+    /*
+    * //添加接口
+    * */
+@RequestMapping("/addMessage")
     public String addMessage(Message message){
     SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
     HashMap<Object, Object> map = new HashMap<>();
-    map.put("messageTitle",message.getMessageTitle());
-    map.put("messageType",message.getMessageType());
-    map.put("author",message.getAuthor());
-    map.put("messageAddress",message.getMessageAddress());
-    map.put("messageContent",message.getMessageContent());
+    if (message.getMessageTitle().isEmpty()==false){ map.put("messageTitle",message.getMessageTitle());}//选填
+    if (message.getMessageType().isEmpty()==false){ map.put("messageType",message.getMessageType());}//选填
+    if (message.getAuthor().isEmpty()==false){map.put("author",message.getAuthor());}//选填
+    if (message.getMessageAddress().isEmpty()==false){ map.put("messageAddress",message.getMessageAddress());}//选填
+    if (message.getMessageContent().isEmpty()==false){ map.put("messageContent",message.getMessageContent());}//选填
     int i = messageService.insertMessage(map);
     List<Message> message1 = messageService.getMessage(map);
     map.put("formatDate",sdf.format( message1.get(0).getCreateDate()));
@@ -67,25 +86,32 @@ public class MessageController{
     }
     return "添加成功！";
     }
-
-@RequestMapping("/updateMessage")//更新接口
+/*
+* //根据ID更新接口
+* */
+@RequestMapping("/updateMessageById")
     public String updateMessage(Message message){
         HashMap<Object, Object> map = new HashMap<>();
-        map.put("messageTitle",message.getMessageTitle());
-        map.put("messageType",message.getMessageType());
-        map.put("status",message.getStatus());
-        map.put("messageId",message.getMessageId());
-        map.put("messageContent",message.getMessageContent());
-        map.put("messageAddress",message.getMessageAddress());
-        map.put("author",message.getAuthor());
+    map.put("messageId",message.getMessageId());
+    if (message.getMessageTitle().isEmpty()==false){ map.put("messageTitle",message.getMessageTitle());}//选填
+    if (message.getMessageType().isEmpty()==false){ map.put("messageType",message.getMessageType());}//选填
+    if (message.getAuthor().isEmpty()==false){map.put("author",message.getAuthor());}//选填
+    if (message.getMessageAddress().isEmpty()==false){ map.put("messageAddress",message.getMessageAddress());}//选填
+    if (message.getMessageContent().isEmpty()==false){ map.put("messageContent",message.getMessageContent());}//选填
     int i = messageService.updateMessage(map);
-    if(i<1){
+    SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+    List<Message> message1 = messageService.getMessage(map);
+    map.put("formatDate",sdf.format( message1.get(0).getCreateDate()));
+    int j = messageService.updateMessage(map);
+    if(j<1){
         return "更新失败！";
     }
     return "更新成功！";
     }
-
-    @RequestMapping("/deleteMessage")//删除接口
+/*
+* //根据ID精确删除接口
+* */
+    @RequestMapping("/deleteMessageById")
     public String deleteMessage(int id){
         HashMap<Object, Object> map = new HashMap<>();
         map.put("messageId",id);
@@ -97,4 +123,5 @@ public class MessageController{
             return "删除失败！";
         }
     }
+
 }
