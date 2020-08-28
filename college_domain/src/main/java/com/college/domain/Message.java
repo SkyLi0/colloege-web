@@ -9,13 +9,15 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//文档的数据实体类
+/*
+* 文件实体类
+* */
 public class Message {
     private Integer messageId;//文章ID
     private String messageTitle;//文章标题
     private String messageType;//文章类型
     private String messageContent;//文章内容
-    private Date createDate;//更新时间
+    private Date createDate;//上次修改时间
     private String status;//审核状态
     private String messageAddress;//文章链接
     private String author;//作者

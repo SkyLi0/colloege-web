@@ -4,7 +4,9 @@ import com.college.domain.School_Leader;
 
 import java.util.List;
 import java.util.Map;
-
+/*
+* 学院领导实体类
+* */
 public interface School_LeaderDao {
 List<School_Leader> getAllLeader();
 List<School_Leader> getLeader(Map map);

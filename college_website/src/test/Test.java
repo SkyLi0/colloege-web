@@ -1,7 +1,11 @@
 import com.college.dao.MessageDao;
+import com.college.dao.Party_Affairs_Organization_MemberDao;
 import com.college.dao.School_LeaderDao;
+import com.college.dao.Student_Affairs_OfficeDao;
 import com.college.domain.Message;
+import com.college.domain.Party_Affairs_Organization_Member;
 import com.college.domain.School_Leader;
+import com.college.domain.Student_Affairs_Office;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -16,13 +20,13 @@ public class Test {
     @org.junit.Test
     public void test() {
         ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext.xml");
-        School_LeaderDao school_leaderDao=ac.getBean(School_LeaderDao.class);
-        HashMap<Object, Object> map = new HashMap<>();
-        map.put("leader_ID",1);
-        map.put("leader_name",leader_name);
-        map.put("leader_title",leader_title);
-        List<School_Leader> leader = school_leaderDao.getLeader(map);
-        for (School_Leader s:leader
+        Party_Affairs_Organization_MemberDao party_affairs_organization_memberDao=ac.getBean(Party_Affairs_Organization_MemberDao.class);
+//        HashMap<Object, Object> map = new HashMap<>();
+//        map.put("leader_ID",1);
+//        map.put("leader_name",leader_name);
+//        map.put("leader_title",leader_title);
+        List<Party_Affairs_Organization_Member> leader = party_affairs_organization_memberDao.getAll();
+        for (Party_Affairs_Organization_Member s:leader
              ) {
             System.out.println(s);
         }

@@ -4,7 +4,9 @@ import com.college.domain.Message;
 
 import java.util.List;
 import java.util.Map;
-
+/*
+* 文档实体类
+* */
 public interface MessageDao {
     //根据条件查找
     List<Message> getMessage(Map map);

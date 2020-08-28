@@ -5,7 +5,9 @@ import com.college.domain.Message;
 
 import java.util.List;
 import java.util.Map;
-
+/*
+* 暂时感觉还没啥用
+* */
 public interface AddressDao {
     //根据条件查找
     List<Address> getAddress(Map map);

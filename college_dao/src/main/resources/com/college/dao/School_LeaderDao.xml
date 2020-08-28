@@ -22,7 +22,7 @@
         </where>
     </select>
     <insert id="insertSchool_Leader" parameterType="map">
-        insert into college_project.school_leader(leader_work,leader_contact_unit,leader_email,leader_name,leader_office_location,leader_phone,leader_phone)
+        insert into college_project.school_leader (leader_work,leader_contact_unit,leader_email,leader_name,leader_office_location,leader_phone,leader_phone)
         values (#{leader_work},#{leader_contact_unit},#{leader_email},#{leader_name},#{leader_office_location},#{leader_phone},#{leader_phone})
     </insert>
     <update id="updateSchool_Leader" parameterType="map">
